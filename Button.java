@@ -2,6 +2,7 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.Color;
 
+
 class Button extends JPanel {
     protected Color bgColor = new Color(30, 30, 40);
     

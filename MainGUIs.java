@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class MainGUIs {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Genshin Impact Characters");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1400, 850);
+public class MainGUIs extends JFrame {
+    private CardLayout cardLayout;
+    private JPanel panelKananBawah;
+
+    public MainGUIs() {
+        // Konfigurasi JFrame
+        setTitle("Genshin Impact Characters");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1400, 850);
 
         // Panel kiri atas
         JPanel panelKiriAtas = new JPanel();
@@ -19,7 +23,7 @@ public class MainGUIs {
 
         // Panel kanan atas
         JPanel panelKananAtas = new JPanel();
-        panelKananAtas.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10)); // Mengatur layout ke kanan
+        panelKananAtas.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
         panelKananAtas.setBackground(new Color(34, 32, 33));
 
         // Membuat instance Button untuk menggunakan fungsi createStyledButton
@@ -43,25 +47,33 @@ public class MainGUIs {
         SidebarButton sidebar = new SidebarButton();
         panelKiriBawah.add(sidebar, BorderLayout.CENTER);
 
-        // Panel kanan bawah
-        JPanel panelKananBawah = new JPanel();
-        panelKananBawah.setLayout(new BorderLayout());
+        // Panel kanan bawah dengan CardLayout
+        panelKananBawah = new JPanel();
+        cardLayout = new CardLayout();
+        panelKananBawah.setLayout(cardLayout);
 
-        // Membuat instance CharachterList
+        // Membuat konten untuk setiap tombol
+        JPanel homePanel = new JPanel();
+        homePanel.setBackground(Color.WHITE);
+        homePanel.add(new JLabel("Home Content"));
+
         CharachterList charachterList = new CharachterList();
+        JScrollPane characterScrollPane = new JScrollPane(charachterList.getLibrary());
 
-        // Mendapatkan CharachterLibrary dari CharachterList
-        CharachterLibrary library = charachterList.getLibrary();
+        JPanel tierListPanel = new JPanel();
+        tierListPanel.setBackground(Color.CYAN);
+        tierListPanel.add(new JLabel("Tier List Content"));
 
-        // Menambahkan library ke panel kanan bawah dengan scroll pane
-        JScrollPane scrollPane = new JScrollPane(library);
-        panelKananBawah.add(scrollPane, BorderLayout.CENTER);
+        // Tambahkan panel ke CardLayout
+        panelKananBawah.add(homePanel, "Home");
+        panelKananBawah.add(characterScrollPane, "Characters");
+        panelKananBawah.add(tierListPanel, "TierList");
 
         // Membuat JSplitPane untuk panel bawah (kiri dan kanan)
         JSplitPane splitPaneBawah = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelKiriBawah, panelKananBawah);
         splitPaneBawah.setDividerLocation(200); // Sidebar memiliki lebar tetap 200px
         splitPaneBawah.setResizeWeight(0); // Sidebar tidak berubah ukurannya
-        splitPaneBawah.setDividerSize(0); // Ukuran divider kecil
+        splitPaneBawah.setDividerSize(0);
 
         // Membuat JSplitPane untuk panel atas (kiri dan kanan)
         JSplitPane panelAtas = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelKiriAtas, panelKananAtas);
@@ -75,7 +87,16 @@ public class MainGUIs {
         splitPaneUtama.setResizeWeight(0); // Panel atas mengambil 20% dari tinggi
         splitPaneUtama.setDividerSize(0);
 
-        frame.add(splitPaneUtama);
-        frame.setVisible(true);
+        // Tambahkan listener ke SidebarButton
+        sidebar.setCardLayout(cardLayout, panelKananBawah);
+
+        add(splitPaneUtama);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            MainGUIs mainGUIs = new MainGUIs();
+            mainGUIs.setVisible(true);
+        });
     }
 }

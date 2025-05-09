@@ -1,7 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 class SidebarButton extends Button {
+    private CardLayout cardLayout;
+    private JPanel cardPanel;
+
     public SidebarButton() {
         // Mengatur layout dan ukuran sidebar
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -39,10 +44,22 @@ class SidebarButton extends Button {
         // Set button background color
         btn.setBackground(color);
 
-        // Disable focus border
-        btn.setFocusable(false);
+        // Tambahkan ActionListener untuk mengubah tampilan halaman
+        btn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (cardLayout != null && cardPanel != null) {
+                    cardLayout.show(cardPanel, text); // Ubah tampilan berdasarkan nama tombol
+                }
+            }
+        });
 
         add(btn);
         add(Box.createRigidArea(new Dimension(0, 10))); // Spasi antar tombol
+    }
+
+    public void setCardLayout(CardLayout cardLayout, JPanel cardPanel) {
+        this.cardLayout = cardLayout;
+        this.cardPanel = cardPanel;
     }
 }
