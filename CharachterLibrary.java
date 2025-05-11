@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class CharachterLibrary extends CardImage {
@@ -19,10 +21,20 @@ public class CharachterLibrary extends CardImage {
         add(containerPanel, BorderLayout.CENTER);
     }
 
-    public void addCard(String imagePath, String imageName) {
+    // Tambahkan parameter info karakter
+    public void addCard(String imagePath, String imageName, String info) {
         CardImage card = new CardImage();
         Image image = new ImageIcon(imagePath).getImage();
         card.setImage(image, imageName);
+
+        // Tambahkan MouseListener untuk pop up info karakter
+        card.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JOptionPane.showMessageDialog(card, info, imageName, JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
         cardImages.add(card);
         containerPanel.add(card); // Menambahkan CardImage ke containerPanel
         revalidate(); // Memperbarui layout

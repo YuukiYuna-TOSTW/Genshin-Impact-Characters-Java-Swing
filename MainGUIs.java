@@ -52,22 +52,46 @@ public class MainGUIs extends JFrame {
         cardLayout = new CardLayout();
         panelKananBawah.setLayout(cardLayout);
 
-        // Membuat konten untuk setiap tombol
-        JPanel homePanel = new JPanel();
-        homePanel.setBackground(Color.WHITE);
-        homePanel.add(new JLabel("Home Content"));
+        // Memuat konten panel dari file terpisah
+        MainContentPanels contentPanels = new MainContentPanels();
 
-        CharachterList charachterList = new CharachterList();
-        JScrollPane characterScrollPane = new JScrollPane(charachterList.getLibrary());
+        // Tambahkan panel daftar karakter dari CharachterList
+        CharachterList1 charList1 = new CharachterList1();
+        CharachterLibrary library1 = charList1.getLibrary();
+        panelKananBawah.add(new JScrollPane(library1), "Character List 1");
 
-        JPanel tierListPanel = new JPanel();
-        tierListPanel.setBackground(Color.CYAN);
-        tierListPanel.add(new JLabel("Tier List Content"));
+        CharachterList2 charList2 = new CharachterList2();
+        CharachterLibrary library2 = charList2.getLibrary();
+        panelKananBawah.add(new JScrollPane(library2), "Character List 2");
 
-        // Tambahkan panel ke CardLayout
-        panelKananBawah.add(homePanel, "Home");
-        panelKananBawah.add(characterScrollPane, "Characters");
-        panelKananBawah.add(tierListPanel, "TierList");
+        CharachterList3 charList3 = new CharachterList3();
+        CharachterLibrary library3 = charList3.getLibrary();
+        panelKananBawah.add(new JScrollPane(library3), "Character List 3");
+
+        CharachterList4 charList4 = new CharachterList4();
+        CharachterLibrary library4 = charList4.getLibrary();
+        panelKananBawah.add(new JScrollPane(library4), "Character List 4");
+
+        CharachterList5 charList5 = new CharachterList5();
+        CharachterLibrary library5 = charList5.getLibrary();
+        panelKananBawah.add(new JScrollPane(library5), "Character List 5");
+
+        CharachterList6 charList6 = new CharachterList6();
+        CharachterLibrary library6 = charList6.getLibrary();
+        panelKananBawah.add(new JScrollPane(library6), "Character List 6");
+
+        CharachterList7 charList7 = new CharachterList7();
+        CharachterLibrary library7 = charList7.getLibrary();
+        panelKananBawah.add(new JScrollPane(library7), "Character List 7");
+
+        CharachterList8 charList8 = new CharachterList8();
+        CharachterLibrary library8 = charList8.getLibrary();
+        panelKananBawah.add(new JScrollPane(library8), "Character List 8");
+
+        // Tambahkan panel lain ke CardLayout
+        panelKananBawah.add(contentPanels.getHomePanel(), "Home");
+        panelKananBawah.add(contentPanels.getCharacterScrollPane(), "Characters");
+        panelKananBawah.add(contentPanels.getTierListPanel(), "TierList");
 
         // Membuat JSplitPane untuk panel bawah (kiri dan kanan)
         JSplitPane splitPaneBawah = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, panelKiriBawah, panelKananBawah);
@@ -87,7 +111,7 @@ public class MainGUIs extends JFrame {
         splitPaneUtama.setResizeWeight(0); // Panel atas mengambil 20% dari tinggi
         splitPaneUtama.setDividerSize(0);
 
-        // Tambahkan listener ke SidebarButton
+        // Hubungkan SidebarButton dengan CardLayout dan panel
         sidebar.setCardLayout(cardLayout, panelKananBawah);
 
         add(splitPaneUtama);

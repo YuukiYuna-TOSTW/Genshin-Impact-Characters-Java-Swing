@@ -22,7 +22,7 @@ class SidebarButton extends Button {
     }
 
     private void initializeButtons() {
-        String[] buttonLabels = {"Home", "Characters", "TierList", "Memory of Chaos", "Lightcones", "Relics", "Guides", "Tools"};
+        String[] buttonLabels = {"Character List 1", "Character List 2", "Character List 3", "Character List 4", "Character List 5", "Character List 6", "Character List 7", "Character List 8"};
         Color[] buttonColors = {Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY, Color.GRAY};
 
         for (int i = 0; i < buttonLabels.length; i++) {

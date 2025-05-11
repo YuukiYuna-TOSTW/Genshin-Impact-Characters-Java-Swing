@@ -15,7 +15,7 @@ public class ContenButton {
         homePanel.setBackground(Color.WHITE);
         homePanel.add(new JLabel("Home Content"));
 
-        CharachterList charachterList = new CharachterList();
+        CharachterList1 charachterList = new CharachterList1();
         JScrollPane characterScrollPane = new JScrollPane(charachterList.getLibrary());
 
         JPanel tierListPanel = new JPanel();
