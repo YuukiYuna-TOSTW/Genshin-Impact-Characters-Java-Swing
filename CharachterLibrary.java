@@ -24,14 +24,24 @@ public class CharachterLibrary extends CardImage {
     // Tambahkan parameter info karakter
     public void addCard(String imagePath, String imageName, String info) {
         CardImage card = new CardImage();
-        Image image = new ImageIcon(imagePath).getImage();
+        ImageIcon icon = new ImageIcon(imagePath);
+        Image image = icon.getImage();
         card.setImage(image, imageName);
 
-        // Tambahkan MouseListener untuk pop up info karakter
+        // Tambahkan MouseListener untuk pop up info karakter dengan gambar
         card.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(card, info, imageName, JOptionPane.INFORMATION_MESSAGE);
+                // Panel custom untuk pop up
+                JPanel panel = new JPanel(new BorderLayout(10, 10));
+                JLabel imgLabel = new JLabel();
+                imgLabel.setIcon(new ImageIcon(image.getScaledInstance(120, 180, Image.SCALE_SMOOTH)));
+                JLabel infoLabel = new JLabel("<html><body style='width:200px'>" + info + "</body></html>");
+                infoLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+                panel.add(imgLabel, BorderLayout.WEST);
+                panel.add(infoLabel, BorderLayout.CENTER);
+
+                JOptionPane.showMessageDialog(card, panel, imageName, JOptionPane.INFORMATION_MESSAGE);
             }
         });
 
